@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en-US">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+  <title>Temperature</title>
+</head>
+
+<body>
+  <h1>How many had a high temparture?</h1>
+  <div id="app">
+    <h2>Get All tests (GET)</h2>
+    <button id="getAllButton" v-on:click="getAllTests" class="btn btn-primary">Get all tests</button>
+
+    <ul id="coronaTestList" v-if="tests.length">
+      <li v-for="coronaTest in tests">
+        {{coronaTest.testId}} {{coronaTest.machineName}} : {{coronaTest.temperature}} {{coronaTest.location}} : {{coronaTest.date}} {{coronaTest.time}}
+      </li>
+    </ul>
+    <div v-else>No tests</div>
+
+    <h2>Get Tests with high temperature (GET)</h2>
+    <button id="getWithHighTemperatureButton" v-on:click="getAllWithHighTemperature" class="btn btn-primary">Get all with high temperature</button>
+    
+    <ul id="coronaTestList" v-if="highTemp.length">
+      <li v-for="coronaTest in highTemp">
+        {{coronaTest.testId}} {{coronaTest.machineName}} : {{coronaTest.temperature}} {{coronaTest.location}} : {{coronaTest.date}} {{coronaTest.time}}
+      </li>
+    </ul>
+    <div v-else>No tests</div>
+
+    <h4>Antal: {{ highTemp.length }}</h4>
+
+    <h4>Hvor mange i procent har høj temperatur: {{ highTemp.length / tests.length * 100 }}%</h4>
+
+  </div>
+
+  <script src="bundle.js"></script>
+</body>
+
+</html>
