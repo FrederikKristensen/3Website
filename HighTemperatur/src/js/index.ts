@@ -21,33 +21,30 @@ new Vue({
     el: "#app",
     data: {
         tests: [],
-        idToGetBy: -1,
-        singleTest: null
+        highTemp: []
+
     },
     methods: {
         getAllTests() {
             this.helperGetAndShow(baseUrl, "all")
         },
-        helperGetAndShow(url: string) {
+        helperGetAndShow(url: string, type: string) {
             axios.get<ICoronaTest[]>(url)
                 .then((response: AxiosResponse<ICoronaTest[]>) => {
+                    if (type == "all")
                         this.tests = response.data
+                    else
+                        this.highTemp = response.data
                 })
                 .catch((error: AxiosError) => {
                     //this.message = error.message
                     alert(error.message) // https://www.w3schools.com/js/js_popup.asp
                 })
         },
-        getById(id: number) {
-            let url: string = baseUrl + "/" + id
-            axios.get<ICoronaTest>(url)
-                .then((response: AxiosResponse<ICoronaTest>) => {
-                    this.singleTest = response.data
-                })
-                .catch((error: AxiosError) => {
-                    //this.message = error.message
-                    alert(error.message) // https://www.w3schools.com/js/js_popup.asp
-                })
+        getAllWithHighTemperature() {
+            let url = baseUrl + "/temperature"
+            this.helperGetAndShow(url)
         }
     }
+
 })

@@ -12,7 +12,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
-  <title>Corona website</title>
+  <title>Get test by Id</title>
 </head>
 
 <body>
@@ -20,94 +20,50 @@
     <div>
       <iframe style="border-style: solid; border-width: 2px;" src="https://www.google.com/maps/d/embed?mid=1DsfyMPjSKWClDgTmn4Crhh-oShOaoiMI&hl=da" width="640" height="480"></iframe>
       </div>
-
-      <div id="app">
-        <h2>Get All tests (GET)</h2>
-        <button id="getAllButton" v-on:click="getAllTests" class="btn btn-primary">Get all tests</button>
-    
-        <ul id="coronaTestList" v-if="tests.length">
-          <li v-for="coronaTest in tests">
-            <table class="table-striped table-bordered table-hover">
-              <colgroup>
-                <col span="1" style="width: 20%;">
-                <col span="1" style="width: 20%;">
-                <col span="1" style="width: 20%;">
-                <col span="1" style="width: 20%;">
-                <col span="1" style="width: 20%;">
-                <col span="1" style="width: 20%;">
-                <col span="1" style="width: 20%;">
-             </colgroup>
-              <thead>
-                <tr>
-                  <th>Test ID</th>
-                  <th>Maskinens Navn</th>
-                  <th>Temperatur</th>
-                  <th>Location</th>
-                  <th>Dato</th>
-                  <th>Tidspunkt</th>
-                </tr>
-              </thead>
+    <div id="app">
+      <h2>Get by ID (GET)</h2>
+      <p>Indtast testens ID nedenunder i søgefeltet for at finde testens oplysninger.</p>
+      <input v-model="idToGetBy" placeholder="id" type="number" />
+      <button v-on:click="getById(idToGetBy)" class="btn btn-primary">Get by id</button>
+      <div span="6" style="align-items: center; width: 70%;" v-if="singleTest">
+        <div class="container">
+          <table class="table-striped table-bordered table-hover">
+            <colgroup>
+              <col span="1" style="width: 20%;">
+              <col span="1" style="width: 20%;">
+              <col span="1" style="width: 20%;">
+              <col span="1" style="width: 20%;">
+              <col span="1" style="width: 20%;">
+              <col span="1" style="width: 20%;">
+              <col span="1" style="width: 20%;">
+          </colgroup>
+            <thead>
               <tr>
-                <td>{{coronaTest.testId}}</td>
-                <td>{{coronaTest.machineName}}</td>
-                <td>{{coronaTest.temperature}} ℃</td>
-                <td>{{coronaTest.location}}</td>
-                <td>{{coronaTest.date}}</td>
-                <td>{{coronaTest.time}}</td>
+                <th>Test ID</th>
+                <th>Maskinens Navn</th>
+                <th>Temperatur</th>
+                <th>Location</th>
+                <th>Dato</th>
+                <th>Tidspunkt</th>
               </tr>
-            </table>
-          </li>
-        </ul>
-        <div v-else>No tests</div>
-    
-      <div id="app">
-        <h2>Get by ID (GET)</h2>
-        <p>Indtast testens ID nedenunder i søgefeltet for at finde testens oplysninger.</p>
-        <input v-model="idToGetBy" placeholder="id" type="number" />
-        <button v-on:click="getById(idToGetBy)" class="btn btn-primary">Get by id</button>
-        <div span="6" style="align-items: center; width: 70%;" v-if="singleTest">
-          <div class="container">
-            <table class="table-striped table-bordered table-hover">
-              <colgroup>
-                <col span="1" style="width: 20%;">
-                <col span="1" style="width: 20%;">
-                <col span="1" style="width: 20%;">
-                <col span="1" style="width: 20%;">
-                <col span="1" style="width: 20%;">
-                <col span="1" style="width: 20%;">
-                <col span="1" style="width: 20%;">
-             </colgroup>
-              <thead>
-                <tr>
-                  <th>Test ID</th>
-                  <th>Maskinens Navn</th>
-                  <th>Temperatur</th>
-                  <th>Location</th>
-                  <th>Dato</th>
-                  <th>Tidspunkt</th>
-                </tr>
-              </thead>
-              <tr>
-                <td>{{singleTest.testId}}</td>
-                <td>{{singleTest.machineName}}</td>
-                <td>{{singleTest.temperature}} ℃</td>
-                <td>{{singleTest.location}}</td>
-                <td>{{singleTest.date}}</td>
-                <td>{{singleTest.time}}</td>
-              </tr>
-            </table>
-          </div>
-          <p style="text-align: center;">
-            <!-- <strong>TestID:</strong> {{singleTest.testId}}, <strong>Maskinens Navn:</strong> {{singleTest.machineName}}, <strong>Temperatur: </strong>{{ singleTest.temperature}}, <strong>Lokalition: </strong>{{singleTest.location}} - (<strong>Dato: </strong>{{singleTest.date}}, {{singleTest.time}}) -->
-          </p>
+            </thead>
+            <tr>
+              <td>{{singleTest.testId}}</td>
+              <td>{{singleTest.machineName}}</td>
+              <td>{{singleTest.temperature}} ℃</td>
+              <td>{{singleTest.location}}</td>
+              <td>{{singleTest.date}}</td>
+              <td>{{singleTest.time}}</td>
+            </tr>
+          </table>
         </div>
-        <div v-else>No such test exists</div>
+        <p style="text-align: center;">
+          <!-- <strong>TestID:</strong> {{singleTest.testId}}, <strong>Maskinens Navn:</strong> {{singleTest.machineName}}, <strong>Temperatur: </strong>{{ singleTest.temperature}}, <strong>Lokalition: </strong>{{singleTest.location}} - (<strong>Dato: </strong>{{singleTest.date}}, {{singleTest.time}}) -->
+        </p>
       </div>
-    
-      <script src="bundle.js"></script>
+    <div v-else>No such test exists</div>
+  </div>
 
-
-    <a href="data_file.zip" download>Her</a>
   <script src="bundle.js"></script>
 </body>
 
