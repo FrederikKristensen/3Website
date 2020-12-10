@@ -22,22 +22,41 @@ new Vue({
     data: {
         tests: [],
         idToGetBy: -1,
-        singleTest: null
+        singleTest: null,
+        temp: [],
+        highTemp: []
+
     },
     methods: {
         getAllTests() {
             this.helperGetAndShow(baseUrl, "all")
         },
-        helperGetAndShow(url: string) {
+        
+        // helperGetAndSho(url: string) {
+        //     axios.get<ICoronaTest[]>(url)
+        //         .then((response: AxiosResponse<ICoronaTest[]>) => {
+        //                 this.tests = response.data
+        //         })
+        //         .catch((error: AxiosError) => {
+        //             //this.message = error.message
+        //             alert(error.message) // https://www.w3schools.com/js/js_popup.asp
+        //         })
+        // },
+
+        helperGetAndShow(url: string, type: string) {
             axios.get<ICoronaTest[]>(url)
                 .then((response: AxiosResponse<ICoronaTest[]>) => {
+                    if (type == "all")
                         this.tests = response.data
+                    else
+                        this.highTemp = response.data
                 })
                 .catch((error: AxiosError) => {
                     //this.message = error.message
-                    alert(error.message) // https://www.w3schools.com/js/js_popup.asp
+                    alert(error.message)
                 })
         },
+
         getById(id: number) {
             let url: string = baseUrl + "/" + id
             axios.get<ICoronaTest>(url)
@@ -48,6 +67,11 @@ new Vue({
                     //this.message = error.message
                     alert(error.message) // https://www.w3schools.com/js/js_popup.asp
                 })
+        },
+
+        getAllWithHighTemperature() {
+            let url = baseUrl + "/temperature"
+            this.helperGetAndShow(url)
         }
     }
 })

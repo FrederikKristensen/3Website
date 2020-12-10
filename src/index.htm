@@ -57,11 +57,32 @@
             </tr>
           </table>
         </div>
-        <p style="text-align: center;">
-          <!-- <strong>TestID:</strong> {{singleTest.testId}}, <strong>Maskinens Navn:</strong> {{singleTest.machineName}}, <strong>Temperatur: </strong>{{ singleTest.temperature}}, <strong>Lokalition: </strong>{{singleTest.location}} - (<strong>Dato: </strong>{{singleTest.date}}, {{singleTest.time}}) -->
-        </p>
       </div>
     <div v-else>No such test exists</div>
+    <h2>Get All tests (GET)</h2>
+    <button id="getAllButton" v-on:click="getAllTests" class="btn btn-primary">Get all tests</button>
+
+    <ul id="coronaTestList" v-if="tests.length">
+      <li v-for="coronaTest in tests">
+        {{coronaTest.testId}} {{coronaTest.machineName}} : {{coronaTest.temperature}} {{coronaTest.location}} : {{coronaTest.date}} {{coronaTest.time}}
+      </li>
+    </ul>
+    <div v-else>No tests</div>
+
+    <h2>Get Tests with high temperature (GET)</h2>
+    <button id="getWithHighTemperatureButton" v-on:click="getAllWithHighTemperature" class="btn btn-primary">Get all with high temperature</button>
+    
+    <ul id="coronaTestList" v-if="highTemp.length">
+      <li v-for="coronaTest in highTemp">
+        {{coronaTest.testId}} {{coronaTest.machineName}} : {{coronaTest.temperature}} {{coronaTest.location}} : {{coronaTest.date}} {{coronaTest.time}}
+      </li>
+    </ul>
+    <div v-else>No tests</div>
+
+    <h4>Antal: {{ highTemp.length }}</h4>
+
+    <h4>Hvor mange i procent har høj temperatur: {{ highTemp.length / tests.length * 100 }}%</h4>  
+
   </div>
 
   <script src="bundle.js"></script>
