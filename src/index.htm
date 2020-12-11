@@ -5,28 +5,61 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
-  <title>Get test by Id</title>
+  <title>Corona Assistent</title>
 </head>
 
 <body>
-  <body style="background-color: powderblue;">
-    <div>
-      <iframe style="border-style: solid; border-width: 2px;" src="https://www.google.com/maps/d/embed?mid=1DsfyMPjSKWClDgTmn4Crhh-oShOaoiMI&hl=da" width="640" height="480"></iframe>
+  <body style="background-color:white;">
+
+    <div class="jumbotron jumbotron-fluid" style="color: white; background-color: rgb(190, 16, 16);">
+      <div class="container">
+        <h1><strong>Corona Assistent</strong></h1>
+        <p>Hold dig opdateret med den nyeste data</p>
       </div>
-    <div id="app">
-      <h2>Get by ID (GET)</h2>
-      <p>Indtast testens ID nedenunder i søgefeltet for at finde testens oplysninger.</p>
-      <input v-model="idToGetBy" placeholder="id" type="number" />
-      <button v-on:click="getById(idToGetBy)" class="btn btn-primary">Get by id</button>
-      <div span="6" style="align-items: center; width: 70%;" v-if="singleTest">
-        <div class="container">
+    </div>
+    
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6">
+          <h1>Maskine Kort</h1>
+          <p>Hver maskines lokation er fremvist på kortet ved siden af og er blevet tildelt sin egen unikke farve - tryk på en af dem for at se hvor du skal gå hen for at få målt din temperatur.</p>
+         
+        </div>
+        <div class="col-sm-6">
+         <iframe style="border-style: solid; border-width: 2px;" src="https://www.google.com/maps/d/embed?mid=1DsfyMPjSKWClDgTmn4Crhh-oShOaoiMI&hl=da" width="640" height="480"></iframe>
+         <p style="text-align: center; font-size: small; margin-left:12%;">
+          Der er i alt 4 tilgængelige maskiner
+        </p>
+        </div>
+      </div>
+    </div>
+
+    <div>
+        <div style="margin-left: 56%">
+           
+        </div>
+        </div>
+    </div>
+
+    
+
+    <div id="app" style="margin-top: 5%; width: 100%;" >
+      <div class="jumbotron jumbotron-fluid">
+        <div class="container" style="margin-left: 11.5%;">
+          <hr class="Rounded">
+      <h2><strong>Test Søgning</strong></h2>
+      <p>Indtast testens ID nedenunder i søgefeltet for at finde dens oplysninger.</p>
+      <input style="width: 10%;" v-model="idToGetBy" placeholder="id" type="number"/>
+      <button style="width: 10%; color: white; background-color: rgb(190, 16, 16);" v-on:click="getById(idToGetBy)" class="btn btn-primary">Søg</button>
+      <div span="12" style="align-items: right; width: 70%; margin-top: 1%;" v-if="singleTest">
+        <div class="container" style="margin-left: -2%;">
           <table class="table-striped table-bordered table-hover">
             <colgroup>
               <col span="1" style="width: 20%;">
@@ -58,31 +91,103 @@
           </table>
         </div>
       </div>
-    <div v-else>No such test exists</div>
-    <h2>Get All tests (GET)</h2>
-    <button id="getAllButton" v-on:click="getAllTests" class="btn btn-primary">Get all tests</button>
-
-    <ul id="coronaTestList" v-if="tests.length">
-      <li v-for="coronaTest in tests">
-        {{coronaTest.testId}} {{coronaTest.machineName}} : {{coronaTest.temperature}} {{coronaTest.location}} : {{coronaTest.date}} {{coronaTest.time}}
-      </li>
-    </ul>
-    <div v-else>No tests</div>
-
-    <h2>Get Tests with high temperature (GET)</h2>
-    <button id="getWithHighTemperatureButton" v-on:click="getAllWithHighTemperature" class="btn btn-primary">Get all with high temperature</button>
+    <div v-else></div>
+   
+        </div>
+      </div>
+      
     
-    <ul id="coronaTestList" v-if="highTemp.length">
-      <li v-for="coronaTest in highTemp">
-        {{coronaTest.testId}} {{coronaTest.machineName}} : {{coronaTest.temperature}} {{coronaTest.location}} : {{coronaTest.date}} {{coronaTest.time}}
+   <div style="width: 80%; margin-left: 12.5%; margin-top: 5%;">
+
+    <h2><strong>Alle Tests</strong></h2>
+    <p style="font-size: large;">Få et overblik over alle udførte tests</p>
+    <button style="color: white; background-color: rgb(190, 16, 16); width: 10%;"id="getAllButton" v-on:click="getAllTests" class="btn btn-primary">Hent</button>
+
+    <ul id="coronaTestList" v-if="tests.length" style="margin-top: 1%;">
+      <li v-for="coronaTest in tests">
+        <table class="table-striped table-bordered table-hover">
+          <colgroup>
+            <col span="1" style="width: 20%;">
+            <col span="1" style="width: 20%;">
+            <col span="1" style="width: 20%;">
+            <col span="1" style="width: 20%;">
+            <col span="1" style="width: 20%;">
+            <col span="1" style="width: 20%;">
+            <col span="1" style="width: 20%;">
+        </colgroup>
+          <thead>
+            <tr>
+              <th>Test ID</th>
+              <th>Maskinens Navn</th>
+              <th>Temperatur</th>
+              <th>Location</th>
+              <th>Dato</th>
+              <th>Tidspunkt</th>
+            </tr>
+          </thead>
+          <tr>
+            <td>{{coronaTest.testId}}</td>
+            <td>{{coronaTest.machineName}}</td>
+            <td>{{coronaTest.temperature}} ℃</td>
+            <td>{{coronaTest.location}}</td>
+            <td>{{coronaTest.date}}</td>
+            <td>{{coronaTest.time}}</td>
+          </tr>
+        </table>
       </li>
     </ul>
-    <div v-else>No tests</div>
+    <div v-else></div>
+  </div>
 
-    <h4>Antal: {{ highTemp.length }}</h4>
+  <div class="jumbotron jumbotron-fluid" style="margin-top: 5%;">
+    <div class="container" style="margin-left: 11.5%;">
 
-    <h4>Hvor mange i procent har høj temperatur: {{ highTemp.length / tests.length * 100 }}%</h4>  
+    <h2><strong>Risiko Markeret Tests</strong></h2>
+    <p style="font-size: large;">Få et overblik over alle test som er risiko markeret</p>
+    <button style="width: 11%; color: white; background-color: rgb(190, 16, 16);" id="getWithHighTemperatureButton" v-on:click="getAllWithHighTemperature" class="btn btn-primary">Hent</button>
+    
+    <ul id="coronaTestList" v-if="highTemp.length" style="margin-top: 1%;">
+      <li v-for="coronaTest in highTemp">
+        <table class="table-striped table-bordered table-hover">
+          <colgroup>
+            <col span="1" style="width: 20%;">
+            <col span="1" style="width: 20%;">
+            <col span="1" style="width: 20%;">
+            <col span="1" style="width: 20%;">
+            <col span="1" style="width: 20%;">
+            <col span="1" style="width: 20%;">
+            <col span="1" style="width: 20%;">
+        </colgroup>
+          <thead>
+            <tr>
+              <th>Test ID</th>
+              <th>Maskinens Navn</th>
+              <th>Temperatur</th>
+              <th>Location</th>
+              <th>Dato</th>
+              <th>Tidspunkt</th>
+            </tr>
+          </thead>
+          <tr>
+            <td>{{coronaTest.testId}}</td>
+            <td>{{coronaTest.machineName}}</td>
+            <td>{{coronaTest.temperature}} ℃</td>
+            <td>{{coronaTest.location}}</td>
+            <td>{{coronaTest.date}}</td>
+            <td>{{coronaTest.time}}</td>
+          </tr>
+        </table>
+      </li>
+      <h4 style="margin-top: 3%;"><strong>Antal: </strong>{{ highTemp.length }}</h4>
 
+      <h4><strong>Procent: </strong>{{ highTemp.length / tests.length * 100 }}%</h4>
+      <p style="font-size: small;">*Bemærk! en test er risikomarkeret når personens temperatur er over 38 ℃</p>
+    </ul>
+    
+    <div v-else></div>
+
+   
+</div>
   </div>
 
   <script src="bundle.js"></script>
