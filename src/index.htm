@@ -56,11 +56,11 @@
           <hr class="Rounded">
       <h2><strong>Test Søgning</strong></h2>
       <p>Indtast testens ID nedenunder i søgefeltet for at finde dens oplysninger.</p>
-      <input style="width: 10%;" v-model="idToGetBy" placeholder="id" type="number"/>
-      <button style="width: 10%; color: white; background-color: rgb(190, 16, 16);" v-on:click="getById(idToGetBy)" class="btn btn-primary">Søg</button>
+      <input id="putTestTo" style="width: 10%;" v-model="idToGetBy" placeholder="id" type="number"/>
+      <button id="getById" style="width: 10%; color: white; background-color: rgb(190, 16, 16);" v-on:click="getById(idToGetBy)" class="btn btn-primary">Søg</button>
       <div span="12" style="align-items: right; width: 70%; margin-top: 1%;" v-if="singleTest">
         <div class="container" style="margin-left: -2%;">
-          <table class="table-striped table-bordered table-hover">
+          <table id="testTable" class="table-striped table-bordered table-hover">
             <colgroup>
               <col span="1" style="width: 20%;">
               <col span="1" style="width: 20%;">
