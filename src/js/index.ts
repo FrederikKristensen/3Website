@@ -21,7 +21,7 @@ new Vue({
     el: "#app",
     data: {
         tests: [],
-        idToGetBy: -1,
+        idToGetBy: 1,
         singleTest: null,
         temp: [],
         highTemp: []
